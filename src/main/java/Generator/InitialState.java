@@ -1,6 +1,7 @@
 package Generator;
 
 
+import Models.Bird2D;
 import org.json.*;
 
 import java.io.File;
@@ -9,6 +10,8 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.List;
 
 public class InitialState {
     private final static String DIRECTORY = "./results";
@@ -48,7 +51,10 @@ public class InitialState {
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
 
+    public static List<Bird2D> generateDynamic(int total_agents , int space_width , double radius , double theta_amp ){
+    return Collections.emptyList();
     }
 
 }
