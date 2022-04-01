@@ -5,11 +5,10 @@ public class Bird2D {
     public Vector2D pos , vel , acc;
     double newTheta = 0 , oldTheta = 0;
 
-    Bird2D(Vector2D pos , Vector2D vel){
+    public Bird2D(Vector2D pos , Vector2D vel){
         this.pos = pos;
         this.vel = vel;
         this.acc = new Vector2D( 0 ,0 );
-
     }
 
 }
