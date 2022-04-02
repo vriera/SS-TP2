@@ -47,6 +47,10 @@ public class Vector2D {
             return Math.atan2(this.y, this.x);
         }
 
+        public double magnitude() {
+            return this.distance(new Vector2D(0, 0));
+        }
+
         public static Vector2D fromAngle(double angle, double magnitude) {
             return new Vector2D(magnitude, 0).rotate(angle);
         }
