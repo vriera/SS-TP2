@@ -30,6 +30,8 @@ public class FileManager {
 
     //Returns folder
     public static String createStaticInfo(Parameters p) {
+        File dir = new File(DIRECTORY );
+        dir.mkdir();
         if(p.folder == null){
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd--HH-mm-ss");
             LocalDateTime time = LocalDateTime.now();
@@ -44,8 +46,8 @@ public class FileManager {
         jsonObject.put("total_steps" , p.total_steps);
         jsonObject.put("velocity" , p.velocity);
         String filePath = DIRECTORY + "/" + p.folder + "/static.json";
-        File dir = new File(DIRECTORY + "/" + p.folder);
-        dir.mkdir();
+        File dir2 = new File(DIRECTORY + "/" + p.folder);
+        dir2.mkdir();
         System.out.println(filePath);
         File myObj = new File(filePath);
         try {
