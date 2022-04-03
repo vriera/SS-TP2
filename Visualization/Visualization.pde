@@ -7,6 +7,7 @@ int total_birds;
 int sim_frame_rate;
 float radius;
 float space_width;
+boolean show_radius;
 int step = 0;
 
 void setup() {
@@ -18,6 +19,7 @@ void setup() {
   config = loadJSONObject("../visualization_config.json");
   String result_name = config.getString("result_name");
   sim_frame_rate = config.getInt("frame_rate");
+  show_radius = config.getBoolean("show_radius");
   frameRate(sim_frame_rate);
 
   static_data = loadJSONObject("../results/" + result_name + "/static.json");
@@ -32,7 +34,7 @@ void setup() {
 }
 
 void draw() {
-  background(255);
+  background(0);
   Bird b = new Bird();
   SnapshotData current_snap = snapshots_data.get(step % snapshots_data.size());
   for (int i = 0; i < current_snap.pos.size(); i++) {
@@ -40,10 +42,9 @@ void draw() {
     b.setPos(current_snap.pos.get(i));
     b.setVel(current_snap.vel.get(i));
     b.setAngle(current_snap.ang.get(i));
-    b.draw(space_width);
+    b.draw(space_width, radius, show_radius);
   }
   step++;
-  noLoop();
 }
 
 void loadStatic(JSONObject params) {
