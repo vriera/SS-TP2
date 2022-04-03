@@ -8,6 +8,7 @@ int sim_frame_rate;
 float radius;
 float space_width;
 boolean show_radius;
+boolean color_from_angle;
 int step = 0;
 
 void setup() {
@@ -20,8 +21,13 @@ void setup() {
   String result_name = config.getString("result_name");
   sim_frame_rate = config.getInt("frame_rate");
   show_radius = config.getBoolean("show_radius");
+  color_from_angle = config.getBoolean("color_from_angle");
+  
   frameRate(sim_frame_rate);
-
+  if (color_from_angle) {
+    colorMode(HSB);
+  }
+  
   static_data = loadJSONObject("../results/" + result_name + "/static.json");
   dynamic_data = loadJSONObject("../results/" + result_name + "/snapshots.json");
   
@@ -41,7 +47,7 @@ void draw() {
     b.setPos(current_snap.pos.get(i));
     b.setVel(current_snap.vel.get(i));
     b.setAngle(current_snap.ang.get(i));
-    b.draw(space_width, radius, show_radius);
+    b.draw(space_width, radius, show_radius, color_from_angle);
   }
   
   fill(255);

@@ -22,9 +22,13 @@ class Bird {
     this.angle = ang;
   }
 
-  void draw(float space_width, float radius, boolean show_radius) {
+  void draw(float space_width, float radius, boolean show_radius, boolean color_from_angle) {
     pushMatrix();
-    fill(255, 0, 0, 150);
+    if (color_from_angle) {
+      fill(map(this.angle, 0, TWO_PI, 0, 255), 255, 255);
+    } else {
+      fill(255, 0, 0, 150);
+    }
     noStroke();
 
     float x_canvas = map(pos.x, 0, space_width, 0, width);
