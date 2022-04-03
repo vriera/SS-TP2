@@ -1,9 +1,9 @@
 {
-  "total_agents": 1,
-  "total_steps": 10,
+  "total_agents": 500,
+  "total_steps": 800,
   "space_width": 10,
-  "velocity": 2.5,
-  "radius": 0.1,
-  "theta_amp": 0.1,
-  "folder": "Test1"
+  "velocity": 0.1,
+  "radius": 0.8,
+  "theta_amp": 0.2,
+  "folder": "Test7"
 }
