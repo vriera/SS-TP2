@@ -1,4 +1,7 @@
+import Generator.BirdGenerator;
+import Generator.Config;
 import Models.Bird2D;
+import Models.Parameters;
 import Models.Vector2D;
 
 import java.util.ArrayList;
@@ -6,33 +9,52 @@ import java.util.List;
 import java.util.Random;
 
 public class Simulation {
-    int total_agents = 2;
-    double space_width = 100;
-    double radius = 10;
-    int total_steps = 2;
-    double theta_amp = 0.3;
-    double initial_v = 2;
+    int total_agents;
+    double space_width;
+    double radius;
+    int total_steps;
+    double theta_amp;
+    double velocity;
+    String folder;
     List<Bird2D> population;
 
 
     public static void main(String[] args) {
         Simulation sim = new Simulation();
-        sim.setup();
+        if (!sim.set_parameters(Config.getParameters()))
+            throw new RuntimeException("Invalid Parameters");
+        System.out.println(sim.total_agents);
 
+        sim.setup();
         for (int step = 0; step < sim.total_steps; step++) {
             sim.update();
         }
     }
 
-    void setup() {
-        population = new ArrayList<>();
+    boolean set_parameters(Parameters parameters) {
+        if (parameters == null)
+            return false;
+        this.total_agents = parameters.total_agents;
+        this.total_steps = parameters.total_steps;
+        this.space_width = parameters.space_width;
+        this.velocity = parameters.velocity;
+        this.radius = parameters.radius;
+        this.theta_amp = parameters.theta_amp;
+        this.folder = parameters.folder;
+        return true;
+    }
 
-        for (int i = 0; i < total_agents; i++) {
-            Vector2D pos = new Vector2D(random(0, space_width), random(0, space_width));
-            Vector2D vel = Vector2D.fromAngle(random(0, 2 * Math.PI), initial_v);
-            population.add(new Bird2D(pos, vel));
-            System.out.println("New bird at x: " + pos.x + " y: " + pos.y);
-        }
+    void setup() {
+        population = BirdGenerator.generateBirds(total_agents, space_width, velocity);
+        System.out.println(this.total_agents);
+//        population = new ArrayList<>();
+//
+//        for (int i = 0; i < total_agents; i++) {
+//            Vector2D pos = new Vector2D(random(0, space_width), random(0, space_width));
+//            Vector2D vel = Vector2D.fromAngle(random(0, 2 * Math.PI), velocity);
+//            population.add(new Bird2D(pos, vel));
+//            System.out.println("New bird at x: " + pos.x + " y: " + pos.y);
+//        }
     }
 
     void update() {
@@ -59,6 +81,7 @@ public class Simulation {
 
         for (Bird2D bird : population) {
             bird.update();
+            bird.check_borders(space_width);
             System.out.println(bird);
         }
 

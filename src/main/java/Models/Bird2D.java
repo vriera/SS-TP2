@@ -33,8 +33,24 @@ public class Bird2D {
         this.vel = new Vector2D(mag, 0).rotate(newTheta);
         oldTheta = newTheta;
     }
+
+    public void check_borders(double width) {
+        if (pos.x >= width) {
+            pos = pos.sub(new Vector2D(width, 0));
+        } else if (pos.x < 0) {
+            pos = pos.add(new Vector2D(width, 0));
+        }
+
+        if (pos.y >= width) {
+            pos = pos.sub(new Vector2D(0, width));
+        } else if (pos.y < 0) {
+            pos = pos.add(new Vector2D(0, width));
+        }
+    }
+
     @Override
     public String toString(){
         return "bird: {pos: " + pos + "\tvel: " + vel + "\tacc: " + acc +"}";
     }
+
 }

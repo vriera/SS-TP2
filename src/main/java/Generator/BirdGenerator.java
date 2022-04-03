@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BirdGenerator {
-    public static List<Bird2D> generateBirds(int total_agents , int space_width , double velocity) {
+    public static List<Bird2D> generateBirds(int total_agents , double space_width , double velocity) {
         List<Bird2D> birds = new ArrayList<>();
         for( int i = 0 ; i < total_agents ; i++){
             double x_pos = Math.random() * space_width;
