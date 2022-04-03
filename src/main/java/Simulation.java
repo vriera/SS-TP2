@@ -1,8 +1,10 @@
 import Generator.BirdGenerator;
 import Generator.Config;
+import Generator.FileManager;
 import Models.Bird2D;
 import Models.Parameters;
 import Models.Vector2D;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +23,25 @@ public class Simulation {
 
     public static void main(String[] args) {
         Simulation sim = new Simulation();
-        if (!sim.set_parameters(Config.getParameters()))
+        Parameters param = Config.getParameters();
+        if (!sim.set_parameters(param))
             throw new RuntimeException("Invalid Parameters");
         System.out.println(sim.total_agents);
 
+
+
         sim.setup();
+        assert param != null;
+        String folder = FileManager.createStaticInfo(param);
+        JSONArray prev_array = FileManager.generateDynamicFromBirds(sim.population, null);
         for (int step = 0; step < sim.total_steps; step++) {
+
             sim.update();
+            JSONArray step_array = FileManager.generateDynamicFromBirds(sim.population, prev_array);
+            prev_array = step_array;
+
         }
+        FileManager.saveSnapshots(prev_array, folder);
     }
 
     boolean set_parameters(Parameters parameters) {
