@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class Config {
     private static final String CONFIG_FILEPATH = "./config.json";
@@ -33,12 +34,14 @@ public class Config {
                     json.getDouble("velocity"),
                     json.getDouble("radius"),
                     json.getDouble("theta_amp"),
-                    (json.has("folder")? json.getString("folder"):null)
-            );
+                    (json.has("folder")? json.getString("folder"):null),
+                    json.has("runs")? json.getDouble("runs"):null );
+            System.out.println(parameters);
             return parameters;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
+
 }

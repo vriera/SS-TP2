@@ -20,10 +20,30 @@ public class Simulation {
     String folder;
     List<Bird2D> population;
 
+    public static void main(String[] args){
+        Parameters parameters = Config.getParameters();
+        if(parameters == null)
+            throw new RuntimeException("Invalid Parameters");
 
-    public static void main(String[] args) {
+
+        if( parameters.runs ==null){
+            runSimulation(parameters);
+            return;
+        }
+
+        if( parameters.folder == null)
+            throw new RuntimeException("Invalid Parameters");
+
+        String folderName = parameters.folder;
+        parameters.runs = Math.abs(parameters.runs);
+        for(int i = 0 ; i  < parameters.runs ; i++){
+            parameters.folder = folderName + "_" + i;
+            runSimulation(parameters);
+        }
+    }
+
+    public static void runSimulation(Parameters param){
         Simulation sim = new Simulation();
-        Parameters param = Config.getParameters();
         if (!sim.set_parameters(param))
             throw new RuntimeException("Invalid Parameters");
 
@@ -42,6 +62,7 @@ public class Simulation {
         }
         FileManager.saveSnapshots(prev_array, folder);
     }
+
 
     boolean set_parameters(Parameters parameters) {
         if (parameters == null)
