@@ -11,7 +11,7 @@ boolean show_radius;
 int step = 0;
 
 void setup() {
-  size(600, 600);
+  size(800, 800);
   
   JSONObject dynamic_data;
   JSONObject static_data;
@@ -38,12 +38,18 @@ void draw() {
   Bird b = new Bird();
   SnapshotData current_snap = snapshots_data.get(step % snapshots_data.size());
   for (int i = 0; i < current_snap.pos.size(); i++) {
-    println("vel: " + current_snap.vel.get(i));
     b.setPos(current_snap.pos.get(i));
     b.setVel(current_snap.vel.get(i));
     b.setAngle(current_snap.ang.get(i));
     b.draw(space_width, radius, show_radius);
   }
+  
+  fill(255);
+  text("Name: " +  config.getString("result_name"), 10, 10);
+  text("Total Agents: " + total_birds, 10, 24);
+  text("Space Width: " + space_width, 10, 38);
+  text("Step " + (step % total_steps) + "/" + total_steps, 10, 52);
+  
   step++;
 }
 
@@ -77,4 +83,8 @@ void loadDynamic(JSONObject params) {
 
 PVector get_vec(JSONObject pos) {
   return new PVector(pos.getFloat("x"), pos.getFloat("y"));
+}
+
+void keyPressed() {
+  loop();
 }
