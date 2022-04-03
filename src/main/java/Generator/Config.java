@@ -35,7 +35,6 @@ public class Config {
                     json.getDouble("theta_amp"),
                     (json.has("folder")? json.getString("folder"):null)
             );
-            System.out.println(parameters);
             return parameters;
         } catch (IOException e) {
             e.printStackTrace();

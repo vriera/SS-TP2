@@ -48,14 +48,12 @@ public class FileManager {
         String filePath = DIRECTORY + "/" + p.folder + "/static.json";
         File dir2 = new File(DIRECTORY + "/" + p.folder);
         dir2.mkdir();
-        System.out.println(filePath);
         File myObj = new File(filePath);
         try {
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
                 FileWriter myWriter = new FileWriter(filePath );
                 myWriter.write(jsonObject.toString());
-                System.out.println(jsonObject);
                 myWriter.close();
             }else{
                 System.out.println("File not created");
@@ -72,14 +70,12 @@ public class FileManager {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("snapshots" , snapshots);
         String filePath = DIRECTORY + "/" + folder + "/snapshots.json";
-        System.out.println(filePath);
         File myObj = new File(filePath);
         try {
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
                 FileWriter myWriter = new FileWriter(filePath );
                 myWriter.write(jsonObject.toString());
-                System.out.println(jsonObject);
                 myWriter.close();
             }else{
                 System.out.println("File not created");

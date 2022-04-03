@@ -48,10 +48,14 @@ public class Grid2D {
                 int index_j = Math.floorMod((gridY + j), size);
                 if (grid[index_i][index_j] == null)
                     continue;
-                neighbors.addAll(grid[index_i][index_j]);
+                //neighbors.addAll(grid[index_i][index_j]);
+                for (Bird2D b : grid[index_i][index_j]) {
+                    if (!neighbors.contains(b)) {
+                        neighbors.add(b);
+                    }
+                }
             }
         }
-        neighbors.remove(bird);
         return neighbors;
     }
 }

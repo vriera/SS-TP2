@@ -26,7 +26,6 @@ public class Simulation {
         Parameters param = Config.getParameters();
         if (!sim.set_parameters(param))
             throw new RuntimeException("Invalid Parameters");
-        System.out.println(sim.total_agents);
 
 
 
@@ -59,15 +58,6 @@ public class Simulation {
 
     void setup() {
         population = BirdGenerator.generateBirds(total_agents, space_width, velocity);
-        System.out.println(this.total_agents);
-//        population = new ArrayList<>();
-//
-//        for (int i = 0; i < total_agents; i++) {
-//            Vector2D pos = new Vector2D(random(0, space_width), random(0, space_width));
-//            Vector2D vel = Vector2D.fromAngle(random(0, 2 * Math.PI), velocity);
-//            population.add(new Bird2D(pos, vel));
-//            System.out.println("New bird at x: " + pos.x + " y: " + pos.y);
-//        }
     }
 
     void update() {
@@ -86,7 +76,7 @@ public class Simulation {
             List<Bird2D> neighbors = grid.getNeighbors(bird);
             List<Bird2D> close_neighbors = new ArrayList<>();
             for (Bird2D neighbor : neighbors) {
-                if (bird.distance(neighbor) <= radius)
+                if (bird.distance(neighbor, space_width) <= radius)
                     close_neighbors.add(neighbor);
             }
             bird.change_theta(close_neighbors, random(-theta_amp, theta_amp));
@@ -95,7 +85,6 @@ public class Simulation {
         for (Bird2D bird : population) {
             bird.update();
             bird.check_borders(space_width);
-            System.out.println(bird);
         }
 
     }

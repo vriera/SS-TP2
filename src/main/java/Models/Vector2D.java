@@ -39,7 +39,7 @@ public class Vector2D {
             while (angle <= 0) {
                 angle += 2 * Math.PI;
             }
-            while (angle > 2 * Math.PI) {
+            while (angle > (2 * Math.PI)) {
                 angle -= 2 * Math.PI;
             }
             double mag = Math.sqrt(this.x * this.x + this.y * this.y);
@@ -49,7 +49,9 @@ public class Vector2D {
         }
 
         public double heading() {
-            return Math.atan2(this.y, this.x);
+            double angle = Math.atan2(this.y, this.x);
+            if (angle < 0) angle += 2*Math.PI;
+            return angle;
         }
 
         public double magnitude() {
