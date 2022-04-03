@@ -15,9 +15,10 @@ public class BirdGenerator {
 
             Vector2D pos = new Vector2D(x_pos , y_pos);
 
-            double x_vel = (Math.random() - 0.5) *2;
-            double y_vel = (Math.random() - 0.5) *2;
-            Vector2D vel = new Vector2D(x_vel , y_vel).normalize().mul(velocity);
+//            double x_vel = (Math.random() - 0.5) *2;
+//            double y_vel = (Math.random() - 0.5) *2;
+            double ang = Math.random() * 2 * Math.PI;
+            Vector2D vel = Vector2D.fromAngle(ang, velocity);
 
             birds.add(new Bird2D(pos , vel));
 

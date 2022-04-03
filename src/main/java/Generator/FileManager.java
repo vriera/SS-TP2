@@ -104,6 +104,7 @@ public class FileManager {
             JSONObject bird_json = new JSONObject();
             bird_json.put("pos" , pos_json);
             bird_json.put("vel" , vel_json);
+            bird_json.put("heading" , bird.vel.heading());
             this_array.put(bird_json);
         }
         snapshot.put("snapshot" , this_array);
