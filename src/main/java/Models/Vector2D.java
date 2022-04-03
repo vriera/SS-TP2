@@ -33,6 +33,33 @@ public class Vector2D {
             return Math.sqrt( (Math.pow(x - other.x , 2) + Math.pow(y-other.y , 2) ));
         }
 
+        public Vector2D rotate(double angle) {
+            double current_angle = this.heading();
+            current_angle += angle;
+            while (angle <= 0) {
+                angle += 2 * Math.PI;
+            }
+            while (angle > 2 * Math.PI) {
+                angle -= 2 * Math.PI;
+            }
+            double mag = Math.sqrt(this.x * this.x + this.y * this.y);
+            double new_x = Math.cos(current_angle) * mag;
+            double new_y = Math.sin(current_angle) * mag;
+            return new Vector2D(new_x, new_y);
+        }
+
+        public double heading() {
+            return Math.atan2(this.y, this.x);
+        }
+
+        public double magnitude() {
+            return this.distance(new Vector2D(0, 0));
+        }
+
+        public static Vector2D fromAngle(double angle, double magnitude) {
+            return new Vector2D(magnitude, 0).rotate(angle);
+        }
+
         @Override
         public String toString(){
             return String.format("( %f , %f )" , x ,y);
