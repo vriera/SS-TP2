@@ -9,19 +9,27 @@ float radius;
 float space_width;
 boolean show_radius;
 boolean color_from_angle;
+boolean show_trail;
+boolean save_animation;
 int step = 0;
+String result_name;
 
 void setup() {
   size(800, 800);
+  background(0);
   
   JSONObject dynamic_data;
   JSONObject static_data;
   
   config = loadJSONObject("../visualization_config.json");
-  String result_name = config.getString("result_name");
+  result_name = config.getString("result_name");
   sim_frame_rate = config.getInt("frame_rate");
   show_radius = config.getBoolean("show_radius");
   color_from_angle = config.getBoolean("color_from_angle");
+  show_trail = config.getBoolean("show_trail");
+  save_animation = config.getBoolean("save_animation");
+  
+  println(show_trail);
   
   frameRate(sim_frame_rate);
   if (color_from_angle) {
@@ -40,7 +48,13 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  if (show_trail) {
+    fill(0, 100);
+    rect(0,0,width,height);
+  } else {
+    background(20);
+  }
+  step++;
   Bird b = new Bird();
   SnapshotData current_snap = snapshots_data.get(step % snapshots_data.size());
   for (int i = 0; i < current_snap.pos.size(); i++) {
@@ -55,8 +69,12 @@ void draw() {
   text("Total Agents: " + total_birds, 10, 24);
   text("Space Width: " + space_width, 10, 38);
   text("Step " + (step % total_steps) + "/" + total_steps, 10, 52);
-  
-  step++;
+  if (step >= total_steps) {
+    noLoop();
+  }
+  if (save_animation) {
+    saveFrame("outputs/" + result_name + "/frame####.png");
+  }
 }
 
 void loadStatic(JSONObject params) {

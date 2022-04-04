@@ -25,7 +25,7 @@ class Bird {
   void draw(float space_width, float radius, boolean show_radius, boolean color_from_angle) {
     pushMatrix();
     if (color_from_angle) {
-      fill(map(this.angle, 0, TWO_PI, 0, 255), 255, 255);
+      fill(map(this.angle, 0, TWO_PI, 0, 255), 255, 255, 150);
     } else {
       fill(255, 0, 0, 150);
     }
