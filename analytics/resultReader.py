@@ -14,8 +14,8 @@ class ResultReader:
 
     @staticmethod
     def parse(path , regex = '.*'):
-        #folders = [ folder for folder in listdir(path) if re.match(folder , regex)]
-        folders = listdir(path)
+        folders = [ folder for folder in listdir(path) if re.match(regex  , folder )]
+        #folders = listdir(path)
         print(folders)
         runs = []
         
@@ -32,21 +32,27 @@ class ResultReader:
                 data = json.load(json_file)
 
             # print("len: " , len(data['snapshots']))
-                lastSnapshot = data['snapshots'].pop()['snapshot']
-                totalVel = []
-                for axis in lastSnapshot[0]['vel']:
-                    totalVel.append(0)
+                orderArray = []
+                t = 0
+                for snapshot in data['snapshots']: 
+                    lastSnapshot = snapshot['snapshot']
+                    totalVel = []
 
-                for bird in lastSnapshot:
-                    for (idx , axis ) in enumerate(bird['vel']):
-                        totalVel[idx] += bird['vel'][axis]
+                    for axis in lastSnapshot[0]['vel']:
+                        totalVel.append(0)
 
-                order = 0
-                for direction in totalVel:
-                    order+= direction**2
-                order = np.sqrt(order) / len(lastSnapshot)
-                run['order'] = order
-                
+                    for bird in lastSnapshot:
+                        for (idx , axis ) in enumerate(bird['vel']):
+                            totalVel[idx] += bird['vel'][axis]
+
+                    order = 0
+                    for direction in totalVel:
+                        order+= direction**2
+                    order = np.sqrt(order) / (len(lastSnapshot) * run['velocity'])
+                    orderArray.append(( t , order))
+                    t+=1
+
+                run['orders'] = orderArray
                 runs.append(run)       
         return runs
     

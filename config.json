@@ -1,9 +1,10 @@
 {
-  "total_agents": 150,
-  "total_steps": 500,
-  "space_width": 15,
+  "total_agents": 40,
+  "total_steps": 300,
+  "space_width": 8,
   "velocity": 0.1,
   "radius": 1,
-  "theta_amp": 0.00,
-  "folder": "Test1"
+  "theta_amp": 0.1,
+  "folder": "TestVA",
+  "runs": 20
 }

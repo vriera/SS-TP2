@@ -3,3 +3,4 @@ target/*
 target
 results
 analytics/venv
+analytics/__pycache__

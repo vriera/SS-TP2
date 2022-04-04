@@ -30,7 +30,7 @@ public class Config {
             Parameters parameters = new Parameters(
                     json.getInt("total_agents"),
                     json.getInt("total_steps"),
-                    json.getInt("space_width"),
+                    json.getDouble("space_width"),
                     json.getDouble("velocity"),
                     json.getDouble("radius"),
                     json.getDouble("theta_amp"),
