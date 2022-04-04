@@ -3,4 +3,7 @@ target/*
 target
 results
 analytics/venv
+analytics/results2.json
+analytics/results.json
 analytics/__pycache__
+results.zip

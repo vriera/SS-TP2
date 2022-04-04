@@ -26,14 +26,14 @@ public class SimulationAnalytics {
         paramList.add(new Pair<>(40 , 8.0));
         paramList.add(new Pair<>(100, 12.64));
         paramList.add(new Pair<>(400 , 25.29));
-        paramList.add(new Pair<>(4000 , 80.0));
-        paramList.add(new Pair<>(10000 , 126.49));
+        //paramList.add(new Pair<>(4000 , 80.0));
+       // paramList.add(new Pair<>(10000 , 126.49));
         String folderName = parameters.folder;
         for (Pair<Integer,Double> p: paramList) {
             parameters.total_agents = p.getKey();
             parameters.space_width = p.getValue();
-            parameters.theta_amp = 0.0;
-            while(parameters.theta_amp <= 5) {
+            parameters.theta_amp = 5.0;
+            while(parameters.theta_amp <= 5.1) {
                 parameters.runs = Math.abs(parameters.runs);
                 for (int i = 0; i < parameters.runs; i++) {
                     parameters.folder = folderName + "_" + parameters.total_agents + "_" + String.format("%.2f",parameters.theta_amp) + "_" +i;
