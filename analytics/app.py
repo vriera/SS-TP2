@@ -1,4 +1,6 @@
 
+from cProfile import label
+from orden import Orden
 import statistics
 from resultReader import ResultReader
 import matplotlib.pyplot as plt
@@ -46,31 +48,30 @@ def visitAllFiles():
 
     with open(f'results2.json') as json_file:
                 dataPorVariacion = json.load(json_file)
-        
-    
+    print(dataPorVariacion)
     for i in individuals:
         for j in steps:
-            runs = ResultReader.parse("../results" , f"^TestVA_{i}_{j}" )
-            results = getPromedioLast(runs)
-            promedios.append(results[0])
-            desvios.append(results[1])
-            if j not in dataPorVariacion:
-                dataPorVariacion[j] = []
-            dataPorVariacion[j].append((results[0] , results[1] , i))
-    saveIntoJson('results.json' , dataPorVariacion)
+           # runs = ResultReader.parse("../results" , f"^TestVA_{i}_{j}" )
+            #results = getPromedioLast(runs)
+            #promedios.append(results[0])
+            #desvios.append(results[1])
+            #if j not in dataPorVariacion:
+            #    dataPorVariacion[j] = []
+         #   dataPorVariacion[j].append((results[0] , results[1] , i))
+           dataPorVariacion[str(j)].append((1 , 1 , i))
+           
+    saveIntoJson('results3.json' , dataPorVariacion)
     return dataPorVariacion
+
 
 def main():
     visitAllFiles()
     return
     with open(f'results2.json') as json_file:
                 dataPorVariacion = json.load(json_file)
+    Orden.plotOrden(dataPorVariacion)
+    print(dataPorVariacion)
     
-    print([ x[0][0] for x in dataPorVariacion.values()])
-    plt.plot( [ float(x) for x in dataPorVariacion.keys() ], [ x[0][0] for x in dataPorVariacion.values()] , 'bt' )            
-    plt.show()
-    #for run in runs:
-      #  print(run)
    
 if __name__ == "__main__":
     main()
